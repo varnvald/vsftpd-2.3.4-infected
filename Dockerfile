@@ -5,11 +5,6 @@ FROM debian:bullseye AS builder
 RUN apt-get update && \
     apt-get install -y \
     build-essential \
-    # gcc \
-    # make \
-    # libcap-dev \
-    # libssl-dev \
-    # wget \
     git && \
     rm -rf /var/lib/apt/lists/*
 
@@ -17,6 +12,8 @@ WORKDIR /vsftpd-src
 
 # Copy source code
 COPY . .
+
+RUN sed -i 's,\r,,;s, *$,,' ./vsftpd.conf
 
 # Build vsftpd
 RUN make
