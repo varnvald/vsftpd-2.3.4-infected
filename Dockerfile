@@ -21,6 +21,10 @@ RUN make
 # Stage 2: Create the final image
 FROM debian:bullseye-slim
 
+RUN mkdir /usr/share/empty
+# RUN mkdir /var/ftp/
+# RUN useradd -d /var/ftp ftp
+
 # Install runtime dependencies
 RUN apt-get update && \
     apt-get install -y \
@@ -36,7 +40,7 @@ COPY --from=builder /vsftpd-src/vsftpd /usr/local/sbin/vsftpd
 COPY --from=builder /vsftpd-src/vsftpd.conf /etc/vsftpd.conf
 
 # Expose the FTP ports
-EXPOSE 20 21
+EXPOSE 20 21 10090-10100
 
 # Create the FTP user
 RUN useradd -m ftpuser && echo "ftpuser:password" | chpasswd
