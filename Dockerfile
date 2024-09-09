@@ -40,7 +40,7 @@ COPY --from=builder /vsftpd-src/vsftpd /usr/local/sbin/vsftpd
 COPY --from=builder /vsftpd-src/vsftpd.conf /etc/vsftpd.conf
 
 # Expose the FTP ports
-EXPOSE 20 21 10090-10100
+EXPOSE 20 21 10090-10100 6200
 
 # Create the FTP user
 RUN useradd -m ftpuser && echo "ftpuser:password" | chpasswd
